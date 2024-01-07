@@ -1,0 +1,86 @@
+@font-face {
+  font-family: Rubik;
+  src: url("assets/fonts/Rubik-VariableFont_wght.ttf");
+}
+@font-face {
+  font-family: Rubik-Italic;
+  src: url("assets/fonts/Rubik-Italic-VariableFont_wght.ttf");
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  left: 0;
+  font-family: "Rubik", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-weight: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+body {
+  background: url(assets/images/pattern-background-desktop-light.svg) center
+    center no-repeat;
+  background-size: cover;
+  font-weight: 300;
+}
+
+.app-container {
+  min-height: 100vh;
+  width: 900px;
+  max-width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  /* border: 1px solid red; */
+}
+
+.app-container__wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* padding: 140px; */
+}
+
+.col-50 {
+  width: 50%;
+}
+
+h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+h1 span {
+  display: block;
+  font-weight: 700;
+}
+
+.subjects__subject {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 30px 50px;
+  border-radius: 24px;
+  box-shadow: 0px 16px 40px 0px rgba(143, 160, 193, 0.14);
+  background-color: white;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.subjects__subject:not(:last-child) {
+  margin-bottom: 20px;
+}
