@@ -84,3 +84,38 @@ h1 span {
 .subjects__subject:not(:last-child) {
   margin-bottom: 20px;
 }
+
+.subject-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/* .subject-icon {
+  --html-color: #fff0e6;
+  --css-color: #e0fdef;
+  --javascript-color: #eceffd;
+  --accessibility-color: #f5e7ff;
+} */
+
+.html-color {
+  background: #fff0e6;
+}
+.css-color {
+  background: #e0fdef;
+}
+.javascript-color {
+  background: #eceffd;
+}
+.accessibility-color {
+  background: #f5e7ff;
+}
+
+.option {
+  display: none;
+}
+.option.active {
+  display: flex;
+}
