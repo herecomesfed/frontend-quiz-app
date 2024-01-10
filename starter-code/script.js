@@ -74,12 +74,10 @@ const loadQuiz = function (currentSub) {
   questionContainer.insertAdjacentHTML("beforeend", questionMarkup);
 
   // Append Answers
-  currentSub.questions[currentStep].options.forEach((o) => {
-    console.log(answerContainer);
-    console.log(o);
+  currentSub.questions[currentStep].options.forEach((o, i) => {
     const answerMarkup = `
         <div class="subjects__subject">
-          <p class="subject-icon">A</p>
+          <p class="subject-icon">${String.fromCharCode(65 + i)}</p>
           <p class="subject-text">${o}</p>
         </div>
   `;
