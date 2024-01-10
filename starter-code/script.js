@@ -2,8 +2,12 @@
 
 // Variables Declare
 const subjectsContainer = document.querySelector(".subjects");
-const leftCol = document.querySelector(".left-col");
-const rightCol = document.querySelector(".right-col");
+const quizContainer = document.querySelector(".app-container__quiz");
+const questionContainer = document.querySelector(
+  ".app-container__quiz .question-wrapper"
+);
+const answerContainer = document.querySelector(".app-container__quiz .options");
+let currentStep;
 
 //Async Function
 const loadData = async function () {
@@ -54,49 +58,32 @@ const chooseSubject = function (subject) {
   });
 };
 
-// const loadQuiz = function (currentSub) {
-//   const appContainer = document.querySelector(".app-container");
-//   appContainer.innerHTML = "";
-//   let currentTab = 0;
-//   currentSub.questions.forEach((q, i) => {
-//     const html = `<div class="app-container__wrapper option ${
-//       i === 0 ? "active" : ""
-//     }">
-//     <div class="col-50 left-col">
-//     <p>Pick a subject to get started</p>
-//       <h2>${q.question}</h2>
-//     </div>
-//     <div class="col-50 right-col">
-//     <div class="subjects">
-//       ${q.options.forEach((o) => {
-//         console.log(o);
-//         `<div class="subjects__subject">
-//                     <p class="subject-text">${o}</p>
-//                   </div>`;
-//       })}
-//       </div>
-//     </div>
-//   </div>`;
-//     appContainer.insertAdjacentHTML("beforeend", html);
-//   });
-// };
-
 const loadQuiz = function (currentSub) {
-  // Load Question
-  leftCol.innerHTML = "";
-  const leftColMarkup = `
-  <h3>${currentSub.questions[0].question}</h3>
+  // Set attribute in body
+  document.body.dataset.page = "quiz-page";
+
+  // Set the current step
+  currentStep = 0;
+  // Append Question
+  const questionMarkup = `
+              <p class="question-number">Question ${currentStep + 1} of 10</p>
+              <h3 class="question">${
+                currentSub.questions[currentStep].question
+              }</h3>
   `;
-  leftCol.insertAdjacentHTML("beforeend", leftColMarkup);
+  questionContainer.insertAdjacentHTML("beforeend", questionMarkup);
 
-  // Load Answer
-  rightCol.innerHTML = "";
-  currentSub.questions[0].options.forEach((o) => {
-    const rightColMarkup = `
-    <div class="subjects__subject">
-      <p class="subject-text">${o}</p>
-    </div>`;
+  // Append Answers
+  currentSub.questions[currentStep].options.forEach((o) => {
+    console.log(answerContainer);
+    console.log(o);
+    const answerMarkup = `
+        <div class="subjects__subject">
+          <p class="subject-icon">A</p>
+          <p class="subject-text">${o}</p>
+        </div>
+  `;
 
-    rightCol.insertAdjacentHTML("beforeend", rightColMarkup);
+    answerContainer.insertAdjacentHTML("beforeend", answerMarkup);
   });
 };

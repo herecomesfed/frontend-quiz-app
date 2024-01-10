@@ -15,37 +15,69 @@
     <script defer src="script.js"></script>
     <title>Frontend Mentor | Frontend quiz app</title>
   </head>
-  <body>
+  <body data-page="front-page">
     <div class="app-container">
-      <div class="app-container__wrapper">
-        <div class="col-50 left-col">
-          <h1>Welcome to the <span>Frontend Quiz</span></h1>
-          <p>Pick a subject to get started</p>
+      <div class="app-container__topbar">
+        <div class="topbar-subject col-50">
+          <div class="subject-icon accessibility-color">
+            <img src="assets/images/icon-accessibility.svg" alt="" />
+          </div>
+          <p class="subject-text">HTML</p>
         </div>
-        <div class="col-50 right-col">
-          <div class="subjects">
-            <!-- <div class="subjects__subject">
-              <div class="subject-icon">
-                <img src="assets/images/icon-html.svg" alt="" />
-                Icon
-              </div>
-              <p class="subject-text">HTML</p>
-            </div>
-            <div class="subjects__subject">
-              <div class="subject-icon">Icon</div>
-              <p class="subject-text">HTML</p>
-            </div>
-            <div class="subjects__subject">
-              <div class="subject-icon">Icon</div>
-              <p class="subject-text">HTML</p>
-            </div>
-            <div class="subjects__subject">
-              <div class="subject-icon">Icon</div>
-              <p class="subject-text">HTML</p>
-            </div> -->
+        <div class="switch-mode col-50">Dark | Light</div>
+      </div>
+      <!-- Front Page -->
+      <div class="app-container__wrapper front-page">
+        <div class="app-container__quiz">
+          <div class="col-50 left-col">
+            <h1>Welcome to the <span>Frontend Quiz</span></h1>
+            <p>Pick a subject to get started</p>
+          </div>
+          <div class="col-50 right-col">
+            <div class="subjects"></div>
           </div>
         </div>
       </div>
+      <!-- Quiz Page -->
+      <div class="app-container__wrapper quiz-page">
+        <div class="app-container__quiz">
+          <div class="col-50 left-col">
+            <div class="question-wrapper">
+              <!-- <p class="question-number">Question 6 of 10</p>
+              <h3 class="question">What does HTML stand for?</h3> -->
+            </div>
+            <div class="progress-bar">
+              <span class="progress-bar__intern"></span>
+            </div>
+          </div>
+          <div class="col-50 right-col">
+            <div class="subjects options">
+              <!-- <div class="subjects__subject">
+                <p class="subject-icon">A</p>
+                <p class="subject-text">HTML</p>
+              </div>
+              <div class="subjects__subject">
+                <p class="subject-icon">B</p>
+                <p class="subject-text">HTML</p>
+              </div>
+              <div class="subjects__subject">
+                <p class="subject-icon">C</p>
+                <p class="subject-text">HTML</p>
+              </div>
+              <div class="subjects__subject">
+                <p class="subject-icon">D</p>
+                <p class="subject-text">HTML</p>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="submit-wrapper">
+          <div class="col-50 submit-wrapper__submit">
+            <button>Submit Answer</button>
+          </div>
+        </div>
+      </div>
+      <!-- End Container Wrapper -->
     </div>
 
     <!-- Quiz menu start -->
@@ -71,5 +103,26 @@
     out of 10
 
     <!-- Quiz completed end -->
+
+    <!-- Sezione statica -->
+    <!-- <div class="subjects__subject">
+              <div class="subject-icon">
+                <img src="assets/images/icon-html.svg" alt="" />
+                Icon
+              </div>
+              <p class="subject-text">HTML</p>
+            </div>
+            <div class="subjects__subject">
+              <div class="subject-icon">Icon</div>
+              <p class="subject-text">HTML</p>
+            </div>
+            <div class="subjects__subject">
+              <div class="subject-icon">Icon</div>
+              <p class="subject-text">HTML</p>
+            </div>
+            <div class="subjects__subject">
+              <div class="subject-icon">Icon</div>
+              <p class="subject-text">HTML</p>
+            </div> -->
   </body>
 </html>
