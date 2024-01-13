@@ -1,13 +1,21 @@
 "use strict";
 
 // Variables Declare
+// Front Page
 const subjectsContainer = document.querySelector(".subjects");
 const quizContainer = document.querySelector(".app-container__quiz");
+
+// Quiz Page
 const questionContainer = document.querySelector(
   ".app-container__quiz .question-wrapper"
 );
 const answerContainer = document.querySelector(".app-container__quiz .options");
+const submitAnswerButton = document.querySelector(".submit-wrapper__submit");
+const topBarSubject = document.querySelector(".topbar-subject");
+
+// Public Variables
 let currentStep;
+let currentSub;
 
 //Async Function
 const loadData = async function () {
@@ -28,6 +36,9 @@ const loadData = async function () {
 
     // Choose the subject of quiz
     await chooseSubject(quizzes);
+
+    // Submit Answer
+    await submitAnswer(quizzes);
   } catch (err) {
     console.error(err);
   }
@@ -35,6 +46,7 @@ const loadData = async function () {
 
 loadData();
 
+// Load Title and Subjects
 const loadFrontPage = function (subject) {
   subject.forEach((s, i) => {
     const html = `<div class="subjects__subject" data-subject="${i}">
@@ -47,10 +59,11 @@ const loadFrontPage = function (subject) {
   });
 };
 
+// Determine argument
 const chooseSubject = function (subject) {
   subjectsContainer.addEventListener("click", function (e) {
     if (e.target.closest(".subjects__subject")) {
-      const currentSub = subject[e.target.getAttribute("data-subject")];
+      currentSub = subject[e.target.getAttribute("data-subject")];
       console.log(currentSub);
 
       loadQuiz(currentSub);
@@ -58,30 +71,67 @@ const chooseSubject = function (subject) {
   });
 };
 
+// Load Quiz Based On Argument
 const loadQuiz = function (currentSub) {
   // Set attribute in body
   document.body.dataset.page = "quiz-page";
 
   // Set the current step
   currentStep = 0;
+
+  generateTopBarSubject(currentSub);
+
+  // Quiz Markup
+  generateQuizMarkup(currentSub, currentStep);
+};
+
+// Generate TopBar Subject
+const generateTopBarSubject = function (currentSub) {
+  const topBarSubjectMarkup = `
+    <div class="subject-icon ${currentSub.title.toLowerCase()}-color">
+      <img src="${currentSub.icon}" alt="${currentSub.title}" />
+      </div>
+    <p class="subject-text">${currentSub.title}</p>
+  `;
+
+  topBarSubject.insertAdjacentHTML("beforeend", topBarSubjectMarkup);
+};
+
+// Generate Quiz Markup
+const generateQuizMarkup = function (currentSub, currentStep) {
   // Append Question
   const questionMarkup = `
-              <p class="question-number">Question ${currentStep + 1} of 10</p>
-              <h3 class="question">${
-                currentSub.questions[currentStep].question
-              }</h3>
-  `;
+<p class="question-number">Question ${currentStep + 1} of 10</p>
+<h3 class="question">${currentSub.questions[currentStep].question}</h3>
+`;
   questionContainer.insertAdjacentHTML("beforeend", questionMarkup);
 
+  const answers = currentSub.questions[currentStep].options;
   // Append Answers
   currentSub.questions[currentStep].options.forEach((o, i) => {
     const answerMarkup = `
-        <div class="subjects__subject">
-          <p class="subject-icon">${String.fromCharCode(65 + i)}</p>
-          <p class="subject-text">${o}</p>
-        </div>
-  `;
+<div class="subjects__subject">
+<p class="subject-icon">${String.fromCharCode(65 + i)}</p>
+<p class="subject-text">${o.replace(/</g, "&lt;")}</p>
+</div>
+`;
 
     answerContainer.insertAdjacentHTML("beforeend", answerMarkup);
   });
 };
+
+// Submit answer
+const submitAnswer = function () {
+  submitAnswerButton.addEventListener("click", function () {
+    if (currentStep > currentSub.questions.length - 2) return;
+    currentStep++;
+    questionContainer.innerHTML = answerContainer.innerHTML = "";
+    generateQuizMarkup(currentSub, currentStep);
+  });
+};
+
+function text(content) {
+  const div = document.createElement("div");
+  div.innerHTML = content;
+  return div.textContent || div.innerText || "";
+}
