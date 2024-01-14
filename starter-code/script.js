@@ -16,6 +16,7 @@ const topBarSubject = document.querySelector(".topbar-subject");
 // Public Variables
 let currentStep;
 let currentSub;
+let score = 0;
 
 //Async Function
 const loadData = async function () {
@@ -38,7 +39,7 @@ const loadData = async function () {
     await chooseSubject(quizzes);
 
     // Submit Answer
-    await submitAnswer(quizzes);
+    await submitAnswer();
   } catch (err) {
     console.error(err);
   }
@@ -105,13 +106,16 @@ const generateQuizMarkup = function (currentSub, currentStep) {
   // Append Question
   const questionMarkup = `
 <p class="question-number">Question ${currentStep + 1} of 10</p>
-<h3 class="question">${currentSub.questions[currentStep].question}</h3>
+<h3 class="question">${currentSub.questions[currentStep].question.replace(
+    /</g,
+    "&lt;"
+  )}</h3>
 `;
   questionContainer.insertAdjacentHTML("beforeend", questionMarkup);
 
   const answers = currentSub.questions[currentStep].options;
   // Append Answers
-  currentSub.questions[currentStep].options.forEach((o, i) => {
+  answers.forEach((o, i) => {
     const answerMarkup = `
 <div class="subjects__subject">
 <p class="subject-icon">${String.fromCharCode(65 + i)}</p>
@@ -125,14 +129,58 @@ const generateQuizMarkup = function (currentSub, currentStep) {
 
 // Submit answer
 const submitAnswer = function () {
+  let selectWarningExist = false;
   submitAnswerButton.addEventListener("click", function () {
-    if (currentStep > currentSub.questions.length - 2) return;
-    currentStep++;
-    questionContainer.innerHTML = answerContainer.innerHTML = "";
-    generateQuizMarkup(currentSub, currentStep);
-    updateProgressBar();
+    const selectedAnswer = document.querySelector(".subjects__subject.active");
+    if (currentStep > currentSub.questions.length - 1) return;
+    if (!selectedAnswer) {
+      console.log("Seleziona!!");
+      const selectWarning = `
+        <div class="select-warning">
+          <img src="./assets/images/icon-error.svg" alt="Error" />
+          <p>Please select an answer</p>
+        </div>
+      `;
+      !selectWarningExist
+        ? submitAnswerButton.insertAdjacentHTML("beforeend", selectWarning)
+        : "";
+      selectWarningExist = true;
+      return;
+    }
+
+    checkAnswer(selectedAnswer);
+
+    setTimeout(() => {
+      currentStep++;
+      questionContainer.innerHTML = answerContainer.innerHTML = "";
+      generateQuizMarkup(currentSub, currentStep);
+      updateProgressBar();
+    }, 1000);
   });
 };
+
+const checkAnswer = function (selectedAnswer) {
+  if (
+    selectedAnswer.textContent.includes(
+      currentSub.questions[currentStep].answer
+    )
+  ) {
+    selectedAnswer.classList.add("correct");
+    score++;
+  } else {
+    selectedAnswer.classList.add("wrong");
+  }
+};
+
+// Select answer
+answerContainer.addEventListener("click", function (e) {
+  if (e.target.closest(".subjects__subject")) {
+    document
+      .querySelectorAll(".subjects__subject")
+      .forEach((s) => s.classList.remove("active"));
+    e.target.classList.add("active");
+  }
+});
 
 // ProgressBar
 const updateProgressBar = function () {
