@@ -83,6 +83,9 @@ const loadQuiz = function (currentSub) {
 
   // Quiz Markup
   generateQuizMarkup(currentSub, currentStep);
+
+  // Set Progress Bar
+  updateProgressBar();
 };
 
 // Generate TopBar Subject
@@ -127,11 +130,13 @@ const submitAnswer = function () {
     currentStep++;
     questionContainer.innerHTML = answerContainer.innerHTML = "";
     generateQuizMarkup(currentSub, currentStep);
+    updateProgressBar();
   });
 };
 
-function text(content) {
-  const div = document.createElement("div");
-  div.innerHTML = content;
-  return div.textContent || div.innerText || "";
-}
+// ProgressBar
+const updateProgressBar = function () {
+  const ProgressBar = document.querySelector(".progress-bar__intern");
+
+  ProgressBar.style.width = `${(currentStep + 1) * 10}%`;
+};

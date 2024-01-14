@@ -16,6 +16,11 @@
   font-family: "Rubik", sans-serif;
 }
 
+:root {
+  --purple: #a729f5;
+  --white: #fff;
+}
+
 h1,
 h2,
 h3,
@@ -70,6 +75,29 @@ body {
 
 .switch-mode {
   text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.switch-mode .switcher {
+  width: 40px;
+  height: 25px;
+  border-radius: 50px;
+  background: var(--purple);
+  position: relative;
+}
+
+.switcher .switcher__dot {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 100%;
+  background: var(--white);
 }
 
 .app-container__wrapper {
@@ -205,6 +233,7 @@ body[data-page="front-page"] .topbar-subject > * {
   background: #000;
   border-radius: 10px;
   border: 3px solid #fff;
+  transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .submit-wrapper {
