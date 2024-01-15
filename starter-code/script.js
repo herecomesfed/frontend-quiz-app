@@ -225,3 +225,5 @@ const loadResultPage = function () {
     return;
   }
 };
+
+console.log("ciao!");
