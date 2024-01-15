@@ -13,6 +13,8 @@ const answerContainer = document.querySelector(".app-container__quiz .options");
 const submitAnswerButton = document.querySelector(".submit-wrapper__submit");
 const topBarSubject = document.querySelector(".topbar-subject");
 
+const resultContainer = document.querySelector(".score-container");
+
 // Public Variables
 let currentStep;
 let currentSub;
@@ -153,10 +155,7 @@ const submitAnswer = function () {
     checkAnswer(selectedAnswer, allAnswers);
 
     setTimeout(() => {
-      if (currentStep > currentSub.questions.length - 2) {
-        document.body.dataset.page = "result-page";
-        return;
-      }
+      loadResultPage();
       currentStep++;
       questionContainer.innerHTML = answerContainer.innerHTML = "";
       generateQuizMarkup(currentSub, currentStep);
@@ -206,7 +205,23 @@ const updateProgressBar = function () {
 
 // Load Result Page
 const loadResultPage = function () {
-  if (currentStep === currentSub.questions.length) {
+  if (currentStep > currentSub.questions.length - 2) {
     document.body.dataset.page = "result-page";
+    const resultMarkup = `
+    <div class="topbar-subject result-subject">
+                <div class="subject-icon ${currentSub.title.toLowerCase()}-color">
+                  <img
+                    src=${currentSub.icon}
+                    alt="${currentSub.title}"
+                  />
+                </div>
+                <p class="subject-text">${currentSub.title}</p>
+              </div>
+
+              <p class="score-container__score">${score}</p>
+              <p class="score-container__maximum">out of 10</p>
+    `;
+    resultContainer.insertAdjacentHTML("beforeend", resultMarkup);
+    return;
   }
 };
