@@ -117,7 +117,7 @@ const generateQuizMarkup = function (currentSub, currentStep) {
   // Append Answers
   answers.forEach((o, i) => {
     const answerMarkup = `
-<div class="subjects__subject">
+<div class="subjects__subject" data-answer="${o.replace(/</g, "&lt;")}">
 <p class="subject-icon">${String.fromCharCode(65 + i)}</p>
 <p class="subject-text">${o.replace(/</g, "&lt;")}</p>
 </div>
@@ -131,8 +131,10 @@ const generateQuizMarkup = function (currentSub, currentStep) {
 const submitAnswer = function () {
   let selectWarningExist = false;
   submitAnswerButton.addEventListener("click", function () {
+    const allAnswers = document.querySelectorAll(".subjects__subject");
     const selectedAnswer = document.querySelector(".subjects__subject.active");
-    if (currentStep > currentSub.questions.length - 1) return;
+    // if (currentStep > currentSub.questions.length - 1) return;
+
     if (!selectedAnswer) {
       console.log("Seleziona!!");
       const selectWarning = `
@@ -148,20 +150,25 @@ const submitAnswer = function () {
       return;
     }
 
-    checkAnswer(selectedAnswer);
+    checkAnswer(selectedAnswer, allAnswers);
 
     setTimeout(() => {
+      if (currentStep > currentSub.questions.length - 2) {
+        document.body.dataset.page = "result-page";
+        return;
+      }
       currentStep++;
       questionContainer.innerHTML = answerContainer.innerHTML = "";
       generateQuizMarkup(currentSub, currentStep);
       updateProgressBar();
+      loadResultPage();
     }, 1000);
   });
 };
 
-const checkAnswer = function (selectedAnswer) {
+const checkAnswer = function (selectedAnswer, allAnswers) {
   if (
-    selectedAnswer.textContent.includes(
+    selectedAnswer.dataset.answer.startsWith(
       currentSub.questions[currentStep].answer
     )
   ) {
@@ -169,10 +176,16 @@ const checkAnswer = function (selectedAnswer) {
     score++;
   } else {
     selectedAnswer.classList.add("wrong");
+    Array.from(allAnswers)
+      .find(
+        (a) => a.dataset.answer === currentSub.questions[currentStep].answer
+      )
+      .classList.add("correct");
   }
 };
 
 // Select answer
+
 answerContainer.addEventListener("click", function (e) {
   if (e.target.closest(".subjects__subject")) {
     document
@@ -182,9 +195,18 @@ answerContainer.addEventListener("click", function (e) {
   }
 });
 
+const selectedAnswer = function (e) {};
+
 // ProgressBar
 const updateProgressBar = function () {
   const ProgressBar = document.querySelector(".progress-bar__intern");
 
   ProgressBar.style.width = `${(currentStep + 1) * 10}%`;
+};
+
+// Load Result Page
+const loadResultPage = function () {
+  if (currentStep === currentSub.questions.length) {
+    document.body.dataset.page = "result-page";
+  }
 };

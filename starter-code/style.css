@@ -245,7 +245,12 @@ h1 span {
   display: flex;
 }
 
-body[data-page="quiz-page"] .front-page {
+body[data-page="quiz-page"] .front-page,
+body[data-page="quiz-page"] .result-page,
+body[data-page="front-page"] .quiz-page,
+body[data-page="front-page"] .result-page,
+body[data-page="result-page"] .front-page,
+body[data-page="result-page"] .quiz-page {
   display: none;
 }
 
@@ -371,4 +376,24 @@ body[data-page="front-page"] .topbar-subject > * {
     bottom: 0;
     left: 0;
   }
+}
+
+/* -------------------------------------------------------------------------------- */
+/* ! Result page */
+/* -------------------------------------------------------------------------------- */
+
+.score-container {
+  text-align: center;
+  border-radius: 2rem;
+  background: var(--white);
+  padding: 4rem;
+}
+
+.result-subject {
+  justify-content: center;
+}
+
+.score-container__score {
+  font-size: 12rem;
+  font-weight: 700;
 }
