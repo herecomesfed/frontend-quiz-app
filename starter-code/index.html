@@ -15,7 +15,7 @@
     <script defer src="script.js"></script>
     <title>Frontend Mentor | Frontend quiz app</title>
   </head>
-  <body data-page="front-page">
+  <body data-page="front-page" data-screen="light">
     <div class="app-container">
       <div class="app-container__topbar">
         <div class="topbar-subject col-50">
@@ -25,11 +25,29 @@
           <p class="subject-text">HTML</p> -->
         </div>
         <div class="switch-mode col-50">
-          <img src="assets/images/icon-sun-dark.svg" alt="" />
-          <div class="switcher">
+          <img
+            class="light-mode"
+            src="assets/images/icon-sun-dark.svg"
+            alt="Sun"
+          />
+          <img
+            class="dark-mode"
+            src="assets/images/icon-sun-light.svg"
+            alt="Sun"
+          />
+          <div class="switcher" tabindex="0">
             <div class="switcher__dot"></div>
           </div>
-          <img src="assets/images/icon-moon-dark.svg" alt="" />
+          <img
+            class="light-mode"
+            src="assets/images/icon-moon-dark.svg"
+            alt="Moon"
+          />
+          <img
+            class="dark-mode"
+            src="assets/images/icon-sun-light.svg"
+            alt="Sun"
+          />
         </div>
       </div>
       <!-- Front Page -->
@@ -57,7 +75,7 @@
             </div>
           </div>
           <div class="col-50 right-col">
-            <div class="subjects options">
+            <ul class="subjects options">
               <!-- <div class="subjects__subject">
                 <p class="subject-icon">A</p>
                 <p class="subject-text">HTML</p>
@@ -74,7 +92,7 @@
                 <p class="subject-icon">D</p>
                 <p class="subject-text">HTML</p>
               </div> -->
-            </div>
+            </ul>
           </div>
         </div>
         <div class="submit-wrapper">
@@ -108,7 +126,7 @@
           </div>
         </div>
         <div class="submit-wrapper">
-          <div class="col-50 submit-wrapper__submit">
+          <div class="col-50 submit-wrapper__submit play-again">
             <button>Play Again</button>
           </div>
         </div>

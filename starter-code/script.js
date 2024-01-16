@@ -11,9 +11,12 @@ const questionContainer = document.querySelector(
 );
 const answerContainer = document.querySelector(".app-container__quiz .options");
 const submitAnswerButton = document.querySelector(".submit-wrapper__submit");
+const playAgainButton = document.querySelector(".play-again");
 const topBarSubject = document.querySelector(".topbar-subject");
 
 const resultContainer = document.querySelector(".score-container");
+
+const switcher = document.querySelector(".switcher");
 
 // Public Variables
 let currentStep;
@@ -40,8 +43,14 @@ const loadData = async function () {
     // Choose the subject of quiz
     await chooseSubject(quizzes);
 
+    // Select Answer
+    await selectAnswer();
+
     // Submit Answer
     await submitAnswer();
+
+    // Play Again
+    await handlePlayAgain();
   } catch (err) {
     console.error(err);
   }
@@ -52,25 +61,36 @@ loadData();
 // Load Title and Subjects
 const loadFrontPage = function (subject) {
   subject.forEach((s, i) => {
-    const html = `<div class="subjects__subject" data-subject="${i}">
-                    <div class="subject-icon ${s.title.toLowerCase()}-color"><img src="${
-      s.icon
-    }" alt="${s.title}"></div>
-                    <p class="subject-text">${s.title}</p>
-                  </div>`;
+    //prettier-ignore
+    const html = `
+      <div class="subjects__subject" data-subject="${i}" tabindex="0">
+        <div class="subject-icon ${s.title.toLowerCase()}-color">
+          <img src="${s.icon}" alt="${s.title}">
+        </div>
+        <p class="subject-text">${s.title}</p>
+      </div>`;
     subjectsContainer.insertAdjacentHTML("beforeend", html);
   });
 };
 
 // Determine argument
 const chooseSubject = function (subject) {
-  subjectsContainer.addEventListener("click", function (e) {
-    if (e.target.closest(".subjects__subject")) {
-      currentSub = subject[e.target.getAttribute("data-subject")];
+  // Handler Function
+  const handleChooseSubject = function (e) {
+    const actualSubject = e.target.closest(".subjects__subject");
+    if (actualSubject) {
+      currentSub = subject[actualSubject.getAttribute("data-subject")];
       console.log(currentSub);
-
       loadQuiz(currentSub);
     }
+  };
+
+  // Select Subject With Click
+  subjectsContainer.addEventListener("click", handleChooseSubject);
+
+  // Select Subject With Enter
+  subjectsContainer.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") handleChooseSubject(e);
   });
 };
 
@@ -106,24 +126,23 @@ const generateTopBarSubject = function (currentSub) {
 // Generate Quiz Markup
 const generateQuizMarkup = function (currentSub, currentStep) {
   // Append Question
+  // prettier-ignore
   const questionMarkup = `
-<p class="question-number">Question ${currentStep + 1} of 10</p>
-<h3 class="question">${currentSub.questions[currentStep].question.replace(
-    /</g,
-    "&lt;"
-  )}</h3>
-`;
+      <p class="question-number">Question ${currentStep + 1} of 10</p>
+      <h3 class="question">${currentSub.questions[currentStep].question.replace(/</g,"&lt;")}</h3>
+      `;
   questionContainer.insertAdjacentHTML("beforeend", questionMarkup);
 
   const answers = currentSub.questions[currentStep].options;
   // Append Answers
   answers.forEach((o, i) => {
+    // prettier-ignore
     const answerMarkup = `
-<div class="subjects__subject" data-answer="${o.replace(/</g, "&lt;")}">
-<p class="subject-icon">${String.fromCharCode(65 + i)}</p>
-<p class="subject-text">${o.replace(/</g, "&lt;")}</p>
-</div>
-`;
+      <li class="subjects__subject" data-answer="${o.replace(/</g,"&lt;")}" tabindex="0">
+        <p class="subject-icon">${String.fromCharCode(65 + i)}</p>
+        <p class="subject-text">${o.replace(/</g, "&lt;")}</p>
+      </li>
+    `;
 
     answerContainer.insertAdjacentHTML("beforeend", answerMarkup);
   });
@@ -155,8 +174,10 @@ const submitAnswer = function () {
     checkAnswer(selectedAnswer, allAnswers);
 
     setTimeout(() => {
-      loadResultPage();
       currentStep++;
+      const lastStep = currentStep > currentSub?.questions.length - 1;
+      loadResultPage(lastStep);
+      if (lastStep) return;
       questionContainer.innerHTML = answerContainer.innerHTML = "";
       generateQuizMarkup(currentSub, currentStep);
       updateProgressBar();
@@ -185,16 +206,22 @@ const checkAnswer = function (selectedAnswer, allAnswers) {
 
 // Select answer
 
-answerContainer.addEventListener("click", function (e) {
-  if (e.target.closest(".subjects__subject")) {
-    document
-      .querySelectorAll(".subjects__subject")
-      .forEach((s) => s.classList.remove("active"));
-    e.target.classList.add("active");
-  }
-});
+const selectAnswer = function () {
+  answerContainer.addEventListener("click", (e) => handleSelectAnswer(e));
+  answerContainer.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") handleSelectAnswer(e);
+  });
 
-const selectedAnswer = function (e) {};
+  const handleSelectAnswer = function (e) {
+    const currentAnswer = e.target.closest(".subjects__subject");
+    if (currentAnswer) {
+      document
+        .querySelectorAll(".subjects__subject")
+        .forEach((s) => s.classList.remove("active"));
+      currentAnswer.classList.add("active");
+    }
+  };
+};
 
 // ProgressBar
 const updateProgressBar = function () {
@@ -204,8 +231,8 @@ const updateProgressBar = function () {
 };
 
 // Load Result Page
-const loadResultPage = function () {
-  if (currentStep > currentSub.questions.length - 2) {
+const loadResultPage = function (lastStep) {
+  if (lastStep) {
     document.body.dataset.page = "result-page";
     const resultMarkup = `
     <div class="topbar-subject result-subject">
@@ -225,3 +252,21 @@ const loadResultPage = function () {
     return;
   }
 };
+
+const handlePlayAgain = function () {
+  playAgainButton.addEventListener("click", function () {
+    document.body.dataset.page = "front-page";
+    score = 0;
+    topBarSubject.innerHTML = "";
+    questionContainer.innerHTML = "";
+    answerContainer.innerHTML = "";
+    resultContainer.innerHTML = "";
+  });
+};
+
+switcher.addEventListener("click", function (e) {
+  console.log("Ciao");
+  document.body.dataset.screen === "light"
+    ? (document.body.dataset.screen = "dark")
+    : (document.body.dataset.screen = "light");
+});
