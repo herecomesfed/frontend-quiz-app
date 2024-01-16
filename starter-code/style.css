@@ -23,6 +23,11 @@
   --light-purple: #f6e7ff;
   --white: #fff;
 
+  --bg-color-light: #f4f6fae6;
+  --bg-color-dark: #313e51e6;
+
+  --options-color-dark: #3b4d66;
+
   --correct: #26d782;
   --warning: #ee5454;
   font-size: 62.5%;
@@ -49,10 +54,15 @@ body {
   background-size: cover;
   font-size: 1.6rem;
   font-weight: 300;
+  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 body[data-screen="dark"] {
-  color: #fff;
+  color: var(--white);
+  background: url(assets/images/pattern-background-desktop-dark.svg) center
+    center no-repeat;
+  background-size: cover;
+  background-color: var(--bg-color-dark);
 }
 
 .app-container {
@@ -169,6 +179,10 @@ h1 span {
   background-color: var(--white);
   cursor: pointer;
   font-weight: 500;
+}
+
+body[data-screen="dark"] .subjects__subject {
+  background-color: var(--options-color-dark);
 }
 
 .subjects__subject:not(:last-child) {
@@ -337,7 +351,7 @@ body[data-page="front-page"] .topbar-subject > * {
   height: 10px;
   /* border: 1px solid red; */
   border-radius: 10px;
-  background: #fff;
+  background: var(--white);
   margin-block: 2rem;
 }
 
@@ -348,9 +362,9 @@ body[data-page="front-page"] .topbar-subject > * {
   left: 0;
   width: 50%;
   height: 100%;
-  background: #000;
+  background: var(--purple);
   border-radius: 10px;
-  border: 3px solid #fff;
+  border: 3px solid var(--white);
   transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
