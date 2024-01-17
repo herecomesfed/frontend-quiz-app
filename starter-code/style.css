@@ -110,6 +110,7 @@ body[data-screen="dark"] {
   border-radius: 50px;
   background: var(--purple);
   position: relative;
+  border: 0;
 }
 
 .switcher .switcher__dot {

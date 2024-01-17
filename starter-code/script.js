@@ -264,9 +264,10 @@ const handlePlayAgain = function () {
   });
 };
 
-switcher.addEventListener("click", function (e) {
-  console.log("Ciao");
+const handleSwitchMode = function () {
   document.body.dataset.screen === "light"
     ? (document.body.dataset.screen = "dark")
     : (document.body.dataset.screen = "light");
-});
+};
+
+switcher.addEventListener("click", handleSwitchMode);
