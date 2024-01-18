@@ -111,6 +111,7 @@ body[data-screen="dark"] {
   background: var(--purple);
   position: relative;
   border: 0;
+  cursor: pointer;
 }
 
 .switcher .switcher__dot {
