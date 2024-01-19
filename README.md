@@ -80,7 +80,7 @@ I want to use this project as a benchmark to remake it in React, both to master 
 
 - Website - [Federico Graziani](https://grazianifederico.it)
 - Frontend Mentor - [@herecomesfed](https://www.frontendmentor.io/profile/herecomesfed)
-- Linkedin - [](https://www.linkedin.com/in/federico-graziani)
+- Linkedin - [Federico Graziani](https://www.linkedin.com/in/federico-graziani)
 
 ## Acknowledgments
 
