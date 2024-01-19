@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+    <title>Frontend Mentor | Frontend quiz app</title>
+  </head>
+  <body data-page="front-page" data-screen="light">
+    <div class="app-container">
+      <div class="app-container__topbar">
+        <div class="topbar-subject col-50">
+          <!-- <div class="subject-icon accessibility-color">
+            <img src="assets/images/icon-accessibility.svg" alt="" />
+          </div>
+          <p class="subject-text">HTML</p> -->
+        </div>
+        <div class="switch-mode col-50">
+          <img
+            class="light-mode"
+            src="assets/images/icon-sun-dark.svg"
+            alt="Sun"
+          />
+          <img
+            class="dark-mode"
+            src="assets/images/icon-sun-light.svg"
+            alt="Sun"
+          />
+          <button class="switcher">
+            <div class="switcher__dot"></div>
+          </button>
+          <img
+            class="light-mode"
+            src="assets/images/icon-moon-dark.svg"
+            alt="Moon"
+          />
+          <img
+            class="dark-mode"
+            src="assets/images/icon-moon-light.svg"
+            alt="Sun"
+          />
+        </div>
+      </div>
+      <!-- Front Page -->
+      <div class="app-container__wrapper front-page">
+        <div class="app-container__quiz">
+          <div class="col-50 left-col">
+            <h1>Welcome to the <span>Frontend Quiz</span></h1>
+            <p>Pick a subject to get started</p>
+          </div>
+          <div class="col-50 right-col">
+            <div class="subjects"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Quiz Page -->
+      <div class="app-container__wrapper quiz-page">
+        <div class="app-container__quiz">
+          <div class="col-50 left-col">
+            <div class="question-wrapper">
+              <!-- <p class="question-number">Question 6 of 10</p>
+              <h3 class="question">What does HTML stand for?</h3> -->
+            </div>
+            <div class="progress-bar">
+              <span class="progress-bar__intern"></span>
+            </div>
+          </div>
+          <div class="col-50 right-col">
+            <ul class="subjects options">
+              <!-- <div class="subjects__subject">
+                <p class="subject-icon">A</p>
+                <p class="subject-text">HTML</p>
+              </div>
+              <div class="subjects__subject">
+                <p class="subject-icon">B</p>
+                <p class="subject-text">HTML</p>
+              </div>
+              <div class="subjects__subject">
+                <p class="subject-icon">C</p>
+                <p class="subject-text">HTML</p>
+              </div>
+              <div class="subjects__subject">
+                <p class="subject-icon">D</p>
+                <p class="subject-text">HTML</p>
+              </div> -->
+            </ul>
+          </div>
+        </div>
+        <div class="submit-wrapper">
+          <div class="col-50 submit-wrapper__submit">
+            <button>Submit Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Start Result Wrapper -->
+      <div class="app-container__wrapper result-page">
+        <div class="app-container__quiz">
+          <div class="col-50 left-col">
+            <h1>Quiz completed <span>You scored...</span></h1>
+          </div>
+          <div class="col-50 right-col">
+            <div class="score-container">
+              <!-- <div class="topbar-subject result-subject">
+                <div class="subject-icon accessibility-color">
+                  <img
+                    src="assets/images/icon-accessibility.svg"
+                    alt="${currentSub.title}"
+                  />
+                </div>
+                <p class="subject-text">Accessibility</p>
+              </div>
+
+              <p class="score-container__score">8</p>
+              <p class="score-container__maximum">out of 10</p> -->
+            </div>
+          </div>
+        </div>
+        <div class="submit-wrapper">
+          <div class="col-50 submit-wrapper__submit play-again">
+            <button>Play Again</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- End Result Wrapper -->
+      <!-- End Container Wrapper -->
+    </div>
+
+    <!-- Quiz menu start -->
+
+    <!-- Welcome to the Frontend Quiz! Pick a subject to get started. HTML CSS
+    JavaScript Accessibility -->
+
+    <!-- Quiz menu end -->
+
+    <!-- Quiz question start -->
+
+    <!-- Question -->
+    <!-- number -->
+    <!-- of 10 A B C D Submit answer -->
+
+    <!-- Quiz question end -->
+
+    <!-- Quiz completed start -->
+
+    <!-- Quiz completed You scored... -->
+
+    <!-- score -->
+    <!-- out of 10 -->
+
+    <!-- Quiz completed end -->
+
+    <!-- Sezione statica -->
+    <!-- <div class="subjects__subject">
+              <div class="subject-icon">
+                <img src="assets/images/icon-html.svg" alt="" />
+                Icon
+              </div>
+              <p class="subject-text">HTML</p>
+            </div>
+            <div class="subjects__subject">
+              <div class="subject-icon">Icon</div>
+              <p class="subject-text">HTML</p>
+            </div>
+            <div class="subjects__subject">
+              <div class="subject-icon">Icon</div>
+              <p class="subject-text">HTML</p>
+            </div>
+            <div class="subjects__subject">
+              <div class="subject-icon">Icon</div>
+              <p class="subject-text">HTML</p>
+            </div> -->
+  </body>
+</html>
