@@ -49,7 +49,7 @@ img {
 }
 
 body {
-  background: url(assets/images/pattern-background-desktop-light.svg) center
+  background: url(assets/images/pattern-background-mobile-light.svg) center
     center no-repeat;
   background-color: #f4f6fae6;
   background-size: cover;
@@ -60,10 +60,40 @@ body {
 
 body[data-screen="dark"] {
   color: var(--white);
-  background: url(assets/images/pattern-background-desktop-dark.svg) center
+  background: url(assets/images/pattern-background-mobile-dark.svg) center
     center no-repeat;
   background-size: cover;
   background-color: var(--bg-color-dark);
+}
+
+@media screen and (width > 767px) {
+  body {
+    background: url(assets/images/pattern-background-tablet-light.svg) center
+      center no-repeat;
+    background-size: cover;
+  }
+
+  body[data-screen="dark"] {
+    background: url(assets/images/pattern-background-tablet-dark.svg) center
+      center no-repeat;
+    background-size: cover;
+    background-color: var(--bg-color-dark);
+  }
+}
+
+@media screen and (width > 1023px) {
+  body {
+    background: url(assets/images/pattern-background-desktop-light.svg) center
+      center no-repeat;
+    background-size: cover;
+  }
+
+  body[data-screen="dark"] {
+    background: url(assets/images/pattern-background-desktop-dark.svg) center
+      center no-repeat;
+    background-size: cover;
+    background-color: var(--bg-color-dark);
+  }
 }
 
 .app-container {
