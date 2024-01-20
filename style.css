@@ -191,12 +191,14 @@ body[data-screen="dark"] .switch-mode .light-mode {
   width: 100%;
 }
 
-h1 {
+h1,
+h2 {
   font-size: 3.5rem;
   margin-bottom: 2rem;
 }
 
-h1 span {
+h1 span,
+h2 span {
   display: block;
   font-weight: 700;
 }
@@ -352,7 +354,8 @@ body[data-page="front-page"] .topbar-subject > * {
     width: 50%;
   }
 
-  h1 {
+  h1,
+  h2 {
     font-size: 4.8rem;
     margin-bottom: 2rem;
   }
