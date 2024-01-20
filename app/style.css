@@ -214,6 +214,10 @@ h1 span {
   font-weight: 500;
 }
 
+[data-screen="dark"] .subjects__subject {
+  box-shadow: 0px 1.6rem 4rem 0px rgba(49, 62, 81, 0.14);
+}
+
 body[data-screen="dark"] .subjects__subject {
   background-color: var(--options-color-dark);
 }
