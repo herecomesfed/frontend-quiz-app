@@ -143,6 +143,8 @@ body[data-screen="dark"] {
   position: relative;
   border: 0;
   cursor: pointer;
+  text-indent: -99999999999999px;
+  overflow: hidden;
 }
 
 .switcher .switcher__dot {
