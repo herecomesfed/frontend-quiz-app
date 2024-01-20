@@ -435,7 +435,7 @@ body[data-page="front-page"] .topbar-subject > * {
   cursor: pointer;
 }
 
-.select-warning {
+.select-warning__content {
   display: flex;
   justify-content: center;
   align-items: center;

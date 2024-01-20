@@ -11,9 +11,11 @@ const questionContainer = document.querySelector(
 );
 const answerContainer = document.querySelector(".app-container__quiz .options");
 const submitAnswerButton = document.querySelector(".submit-wrapper__submit");
+const selectWarning = document.querySelector(".select-warning");
 const playAgainButton = document.querySelector(".play-again");
 const topBarSubject = document.querySelector(".topbar-subject");
 
+// Result Page
 const resultContainer = document.querySelector(".score-container");
 
 const switcher = document.querySelector(".switcher");
@@ -22,7 +24,7 @@ const switcher = document.querySelector(".switcher");
 let currentStep;
 let currentSub;
 let score = 0;
-
+let errorExist = false;
 //Async Function
 const loadData = async function () {
   try {
@@ -35,7 +37,6 @@ const loadData = async function () {
     // Convert Data to Json
     const data = await res.json();
     const { quizzes } = data;
-    console.log(quizzes);
 
     // Load The First Page
     await loadFrontPage(quizzes);
@@ -62,14 +63,14 @@ loadData();
 const loadFrontPage = function (subject) {
   subject.forEach((s, i) => {
     //prettier-ignore
-    const html = `
+    const frontPageMarkup = `
       <div class="subjects__subject" data-subject="${i}" tabindex="0">
         <div class="subject-icon ${s.title.toLowerCase()}-color">
           <img src="${s.icon}" alt="${s.title}">
         </div>
         <p class="subject-text">${s.title}</p>
       </div>`;
-    subjectsContainer.insertAdjacentHTML("beforeend", html);
+    subjectsContainer.insertAdjacentHTML("beforeend", frontPageMarkup);
   });
 };
 
@@ -80,7 +81,6 @@ const chooseSubject = function (subject) {
     const actualSubject = e.target.closest(".subjects__subject");
     if (actualSubject) {
       currentSub = subject[actualSubject.getAttribute("data-subject")];
-      console.log(currentSub);
       loadQuiz(currentSub);
     }
   };
@@ -95,24 +95,24 @@ const chooseSubject = function (subject) {
 };
 
 // Load Quiz Based On Argument
-const loadQuiz = function (currentSub) {
+const loadQuiz = function () {
   // Set attribute in body
   document.body.dataset.page = "quiz-page";
 
   // Set the current step
   currentStep = 0;
 
-  generateTopBarSubject(currentSub);
+  generateTopBarSubject();
 
   // Quiz Markup
-  generateQuizMarkup(currentSub, currentStep);
+  generateQuizMarkup();
 
   // Set Progress Bar
   updateProgressBar();
 };
 
 // Generate TopBar Subject
-const generateTopBarSubject = function (currentSub) {
+const generateTopBarSubject = function () {
   const topBarSubjectMarkup = `
     <div class="subject-icon ${currentSub.title.toLowerCase()}-color">
       <img src="${currentSub.icon}" alt="${currentSub.title}" />
@@ -124,7 +124,7 @@ const generateTopBarSubject = function (currentSub) {
 };
 
 // Generate Quiz Markup
-const generateQuizMarkup = function (currentSub, currentStep) {
+const generateQuizMarkup = function () {
   // Append Question
   // prettier-ignore
   const questionMarkup = `
@@ -150,24 +150,12 @@ const generateQuizMarkup = function (currentSub, currentStep) {
 
 // Submit answer
 const submitAnswer = function () {
-  let selectWarningExist = false;
   submitAnswerButton.addEventListener("click", function () {
     const allAnswers = document.querySelectorAll(".subjects__subject");
     const selectedAnswer = document.querySelector(".subjects__subject.active");
-    // if (currentStep > currentSub.questions.length - 1) return;
 
     if (!selectedAnswer) {
-      console.log("Seleziona!!");
-      const selectWarning = `
-        <div class="select-warning">
-          <img src="./assets/images/icon-error.svg" alt="Error" />
-          <p>Please select an answer</p>
-        </div>
-      `;
-      !selectWarningExist
-        ? submitAnswerButton.insertAdjacentHTML("beforeend", selectWarning)
-        : "";
-      selectWarningExist = true;
+      generateError();
       return;
     }
 
@@ -219,6 +207,7 @@ const selectAnswer = function () {
         .querySelectorAll(".subjects__subject")
         .forEach((s) => s.classList.remove("active"));
       currentAnswer.classList.add("active");
+      removeError();
     }
   };
 };
@@ -271,3 +260,15 @@ const handleSwitchMode = function () {
 };
 
 switcher.addEventListener("click", handleSwitchMode);
+
+const generateError = function () {
+  selectWarning.style.display = "block";
+  errorExist = true;
+};
+
+const removeError = function () {
+  if (errorExist) {
+    selectWarning.style.display = "none";
+    errorExist = false;
+  }
+};
