@@ -446,8 +446,7 @@ body[data-page="front-page"] .topbar-subject > * {
   transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-.submit-wrapper button:hover,
-.submit-wrapper button:focus {
+.submit-wrapper button:hover {
   background: var(--purple-button-hover);
 }
 
