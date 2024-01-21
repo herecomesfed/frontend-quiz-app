@@ -25,6 +25,7 @@ let currentStep;
 let currentSub;
 let score = 0;
 let errorExist = false;
+let answerChecked = false;
 //Async Function
 const loadData = async function () {
   try {
@@ -148,6 +149,9 @@ const generateQuizMarkup = function () {
   });
 };
 
+const editSubmitText = function (text) {
+  submitAnswerButton.firstElementChild.textContent = text;
+};
 // Submit answer
 const submitAnswer = function () {
   submitAnswerButton.addEventListener("click", function () {
@@ -159,22 +163,27 @@ const submitAnswer = function () {
       return;
     }
 
-    checkAnswer(selectedAnswer, allAnswers);
+    if (!answerChecked) {
+      checkAnswer(selectedAnswer, allAnswers);
+      return;
+    }
 
-    setTimeout(() => {
+    if (answerChecked) {
+      answerChecked = false;
       currentStep++;
       const lastStep = currentStep > currentSub?.questions.length - 1;
       loadResultPage(lastStep);
       if (lastStep) return;
       questionContainer.innerHTML = answerContainer.innerHTML = "";
-      generateQuizMarkup(currentSub, currentStep);
+      generateQuizMarkup();
       updateProgressBar();
       loadResultPage();
-    }, 1000);
+      editSubmitText("Submit Answer");
+    }
   });
 };
 
-const checkAnswer = function (selectedAnswer, allAnswers) {
+const checkAnswer = function (selectedAnswer, allAnswers, lastStep) {
   if (
     selectedAnswer.dataset.answer.startsWith(
       currentSub.questions[currentStep].answer
@@ -190,12 +199,17 @@ const checkAnswer = function (selectedAnswer, allAnswers) {
       )
       .classList.add("correct");
   }
+  editSubmitText("Next Question");
+  answerChecked = true;
 };
 
 // Select answer
 
 const selectAnswer = function () {
-  answerContainer.addEventListener("click", (e) => handleSelectAnswer(e));
+  answerContainer.addEventListener("click", (e) => {
+    if (answerChecked) return;
+    handleSelectAnswer(e);
+  });
   answerContainer.addEventListener("keypress", (e) => {
     if (e.key === "Enter") handleSelectAnswer(e);
   });
@@ -250,6 +264,7 @@ const handlePlayAgain = function () {
     questionContainer.innerHTML = "";
     answerContainer.innerHTML = "";
     resultContainer.innerHTML = "";
+    editSubmitText("Submit Answer");
   });
 };
 

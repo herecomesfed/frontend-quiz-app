@@ -20,6 +20,7 @@
 :root {
   --purple: #a729f5;
   --purple-hover: #a729f580;
+  --purple-button-hover: #d394fa;
   --light-purple: #f6e7ff;
   --white: #fff;
 
@@ -442,6 +443,12 @@ body[data-page="front-page"] .topbar-subject > * {
   font-weight: 600;
   color: #fff;
   cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.submit-wrapper button:hover,
+.submit-wrapper button:focus {
+  background: var(--purple-button-hover);
 }
 
 .select-warning__content {
