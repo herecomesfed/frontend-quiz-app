@@ -55,8 +55,11 @@ Users should be able to:
 ### What I learned
 
 In this challenge, I aimed to find a robust solution using Vanilla JS to push my boundaries in a demanding front-end application.
-I will keep refactoring this code and I'll try to add some new features.
+
+I'll' keep refactoring this code and I'll try to add some new features.
+
 I successfully tackled the issue of instances of '<' in the text, ensuring they were not interpreted as HTML tags by using `replace(/</g, "&lt;")`
+
 At first, I was uncertain about how to approach the problem since I am currently studying Regex and needed to conduct research. I am pleased with the final outcome.
 
 ```js
